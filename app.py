@@ -5,15 +5,15 @@ This is a simple, bootstrap based, flask "forum" platform
 from flask import Flask, render_template
 from datetime import datetime
 import re
+from post import Post
+from thread import Thread
 
 __name__ = 'Forum'
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template('base.html',
-     title="Hullo",
-     page=10)
+    return render_template('home.html')
 
 @app.route("/hello/<name>")
 def hello_there(name):
@@ -32,7 +32,14 @@ def hello_there(name):
     content = "Hello there, " + clean_name + "! It's " + formatted_now
     return content
 
-
 @app.context_processor
 def inject_time():
     return {'cur_time': datetime.utcnow()}
+
+""" @app.context_processor
+def inject_nav():
+    return {'navigation_bar': [
+    ('/', 'index', 'Index'),
+    ('/downloads/', 'downloads', 'Downloads'),
+    ('/about/', 'about', 'About')
+]} """
